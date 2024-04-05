@@ -1,11 +1,11 @@
 from pgpy import PGPKey, PGPMessage
-from pgpy.constants import CompressionAlgorithm, SymmetricKeyAlgorithm, HashAlgorithm
-from pgpy.errors import PGPError
+from pgpy.constants import CompressionAlgorithm, SymmetricKeyAlgorithm
 
-def encrypt_message(message, recipient_public_key_file, encrypted_message_file):
-    keys = PGPKey.from_file(recipient_public_key_file)
+
+def encrypt_message(message, public_key_file, encrypted_message_file):
+    keys = PGPKey.from_file(public_key_file)
     if not keys:
-        raise ValueError(f"No keys found in {recipient_public_key_file}")
+        raise ValueError(f"No keys found in {public_key_file}")
     recipient_key = keys[0]
 
     message = PGPMessage.new(message)

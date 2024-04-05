@@ -1,28 +1,33 @@
 from pgpy import PGPMessage, PGPKey
 from pgpy.errors import PGPError
 
-def decrypt_message(encrypted_message_file, recipient_private_key_file, decrypted_message_file, passphrase=None):
-    keys = PGPKey.from_file(recipient_private_key_file)
-    if not keys:
-        raise ValueError(f"No keys found in {recipient_private_key_file}")
-    recipient_key = keys[0]
+def decrypt_message(encrypted_message_file, private_key_file, decrypted_message_file, passphrase):
+    # Load the private key from the file
+    with open(private_key_file, 'rb') as f:
+        keys_data = f.read()
+    private_key, _ = PGPKey.from_blob(keys_data)
 
-    if passphrase:
-        try:
-            recipient_key.unlock(passphrase)
-        except PGPError as e:
-            print("Failed to unlock private key:", e)
+
+    #Unlock the key
+    with private_key.unlock(passphrase) as unlocked_key:
+        if not unlocked_key.is_unlocked:
+            print("Failed to unlock key")
             return
 
-    if not recipient_key.is_unlocked:
-        print("Failed to unlock private key with provided passphrase.")
+    # Load the encrypted message
+    with open(encrypted_message_file, 'rb') as f:
+        message_data = f.read()
+    encrypted_message = PGPMessage.from_blob(message_data)
+
+    # Decrypt the message
+    try:
+        decrypted_message = unlocked_key.decrypt(encrypted_message).message
+    except PGPError as e:
+        print("Failed to decrypt message:", e)
         return
 
-    message = PGPMessage.from_file(encrypted_message_file)
-
-    decrypted_message = recipient_key.decrypt(message)
-
-    with open(decrypted_message_file, 'w') as f:
-        f.write(str(decrypted_message.message))
+    # Write the decrypted message to the file
+    with open(decrypted_message_file, 'wb') as f:
+        f.write(decrypted_message.encode())
 
     print("Message decrypted successfully.")

@@ -1,7 +1,7 @@
 from pgpy import PGPKey, PGPUID
 from pgpy.constants import PubKeyAlgorithm, KeyFlags, HashAlgorithm, SymmetricKeyAlgorithm
 
-def generate_keys(public_key_file, private_key_file, userid, passphrase=None):
+def generate_keys(public_key_file, private_key_file, userid, passphrase):
     key = PGPKey.new(PubKeyAlgorithm.RSAEncryptOrSign, 4096)
     uid = PGPUID.new(userid)
     key.add_uid(uid, usage={KeyFlags.Sign, KeyFlags.EncryptCommunications}, hashes=[HashAlgorithm.SHA256], ciphers=[SymmetricKeyAlgorithm.AES256], compression=[])
