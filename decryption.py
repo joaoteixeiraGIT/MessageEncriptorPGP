@@ -1,15 +1,15 @@
 from pgpy import PGPMessage, PGPKey
 from pgpy.errors import PGPError
 
-def decrypt_message(encrypted_message_file, private_key_file, decrypted_message_file, passphrase):
+def decrypt_message(encrypted_message_file, private_key_file, decrypted_message_file):
     # Load the private key from the file
     with open(private_key_file, 'rb') as f:
         keys_data = f.read()
     private_key, _ = PGPKey.from_blob(keys_data)
-
+    unlock_passphrase = None
 
     #Unlock the key
-    with private_key.unlock(passphrase) as unlocked_key:
+    with private_key.unlock(unlock_passphrase) as unlocked_key:
         if not unlocked_key.is_unlocked:
             print("Failed to unlock key")
             return
