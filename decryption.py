@@ -6,7 +6,7 @@ def decrypt_message(encrypted_message_file, private_key_file, decrypted_message_
     with open(private_key_file, 'rb') as f:
         keys_data = f.read()
     private_key, _ = PGPKey.from_blob(keys_data)
-    unlock_passphrase = None
+    unlock_passphrase = None #input("Enter the passphrase to unlock the private key: ")
 
     #Unlock the key
     with private_key.unlock(unlock_passphrase) as unlocked_key:

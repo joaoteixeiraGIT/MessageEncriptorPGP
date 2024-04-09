@@ -5,21 +5,42 @@ from encryption import encrypt_message
 from decryption import decrypt_message
 
 if __name__ == "__main__":
-    public_key_file = input("Enter the name of the file where you want to store the public key: ")
-    # Ask the user where to save the private key file
-    print("Enter the name and the location of the file where you want to store the private key:")
-    Tk().withdraw()  # to hide the main window
-    private_key_file = asksaveasfilename()  # show a "Save As" dialog box and return the path to the selected file
-    userid = input("Enter the user ID (email address): ")
-    encrypted_message_file = input("Enter the name of the file where you want to keep the encrypted message: ")
-    decrypted_message_file = input("Enter the name of the file where you want to store the decrypted message: ")
-    passphrase = None #input("Enter passphrase to protect the private key") # Meter 'None' para não ter password e funcionar, ainda nao esta funcional :(
-    generate_keys(public_key_file, private_key_file, userid, passphrase)
-    message = input("Enter the message to encrypt: ")
-    encrypt_message(message, public_key_file, encrypted_message_file)
-    # Ask the user to select the private key file
-    print("Enter the location of the private key file:")
-    private_key_file = askopenfilename()  # show an "Open" dialog box and return the path to the selected file
-    decrypt_message(encrypted_message_file, private_key_file, decrypted_message_file)
+    option = None
+    while option != "4":
+        print("Bem vindo ao programa de encriptação e desencriptação de mensagens! :D")
+        print("Selecione uma das opções:")
+        print("1. Gerar chaves")
+        print("2. Encriptar mensagem")
+        print("3. Desencriptar mensagem")
+        print("4. Sair")
+
+        option = input("Opção: ")
     
+        if option == "1":
+            public_key_file = input("Introduza o nome do ficheiro onde quer guardar a chave pública: ")
+            print("Introduza o nome e a localização do ficheiro onde quer guardar a chave privada:")
+            Tk().withdraw()  
+            private_key_file = asksaveasfilename()  # show a "Save As" dialog box and return the path to the selected file
+            userid = input("Introduza o ID do utilizador (endereço email): ")
+            passphrase = None #input("Enter passphrase to protect the private key") # Meter 'None' para não ter password e funcionar, ainda nao esta funcional :(
+            generate_keys(public_key_file, private_key_file, userid, passphrase)    
+            
+        elif option == "2":
+            print("Localize o ficheiro da chave pública: ")
+            sender_public_key_file = askopenfilename()
+            encrypted_message_file = input("Introduza o nome do ficheiro onde quer guardar a mensagem encriptada: ")
+            message = input("Introduza a mensagem: ")
+            encrypt_message(message, sender_public_key_file, encrypted_message_file)
+
+        elif option == "3":
+            print("Localize o ficheiro da mensagem encriptada: ")
+            recieved_encrypted_message_file = askopenfilename()
+            decrypted_message_file = input("Introduza o nome do ficheiro onde quer guardar o ficheiro desencriptado: ")
+            print("Localize o ficheiro da chave privada: ")
+            my_private_key_file = askopenfilename()
+            decrypt_message(recieved_encrypted_message_file, my_private_key_file, decrypted_message_file)
+        elif option == "4":
+            print("Obrigado por usar o programa! Até à próxima! :D")
+
+        
 
