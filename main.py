@@ -6,6 +6,7 @@ from decryption import decrypt_message
 
 if __name__ == "__main__":
     option = None
+    #Menu principal
     while option != "4":
         print("Bem vindo ao programa de encriptação e desencriptação de mensagens! :D")
         print("Selecione uma das opções:")
@@ -20,9 +21,9 @@ if __name__ == "__main__":
             public_key_file = input("Introduza o nome do ficheiro onde quer guardar a chave pública: ")
             print("Introduza o nome e a localização do ficheiro onde quer guardar a chave privada:")
             Tk().withdraw()  
-            private_key_file = asksaveasfilename()  # show a "Save As" dialog box and return the path to the selected file
+            private_key_file = asksaveasfilename()  
             userid = input("Introduza o ID do utilizador (endereço email): ")
-            passphrase = None #input("Enter passphrase to protect the private key") # Meter 'None' para não ter password e funcionar, ainda nao esta funcional :(
+            passphrase = None #input("Introduza uma palavra-passe para proteger a chave privada") # Meter 'None' para não ter password e funcionar, ainda não esta funcional :(
             generate_keys(public_key_file, private_key_file, userid, passphrase)    
             
         elif option == "2":
