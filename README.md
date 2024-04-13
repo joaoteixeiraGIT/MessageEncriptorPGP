@@ -1,4 +1,4 @@
-#Setup do projeto e instalação das bibliotecas necessárias
+# Setup do projeto e instalação das bibliotecas necessárias
 
 No terminal do VS Code, navegue até o diretório recém-clonado.<br>
 python -m venv venv<br>
@@ -7,8 +7,8 @@ No Windows: .\\venv\\Scripts\\activate<br>
 No macOS/Linux: source venv/bin/activate<br>
 Instale as dependências dentro do ambiente virtual: pip install -r requirements.txt<br>
 
-#Implementação dos Scripts
-  #key_generator.py
+# Implementação dos Scripts
+  ## key_generator.py
 Este script gera chaves públicas e privadas.<br>
 
 Função generate_keys<br>
@@ -18,7 +18,7 @@ Função generate_keys<br>
 -Protege a chave privada com a passphrase, utilizando AES256 e SHA256.<br>
 -Salva a chave pública em public_key_file e a chave privada em private_key_file. <br>
 
-  #encryption.py
+  ## encryption.py
 Este script encripta mensagens.<br>
 
 Função encrypt_message<br>
@@ -28,7 +28,7 @@ Função encrypt_message<br>
 -Encripta a mensagem com AES256.<br>
 -Salva a mensagem encriptada em encrypted_message_file.<br>
 
-  #decryption.py
+  ## decryption.py
 Este script desencripta mensagens encriptadas.<br>
 
 Função decrypt_message<br>
@@ -38,7 +38,7 @@ Função decrypt_message<br>
 -Lê a mensagem encriptada.<br>
 -Tenta desencriptar a mensagem.<br>
 
-  #main.py
+  ## main.py
 Este script contém a interface gráfica do utilizador.<br>
 
 Funcionalidades<br>
